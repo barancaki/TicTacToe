@@ -10,14 +10,14 @@ public class TicTacToe {
 	
 	static ArrayList<Integer> oyuncu_konumu = new ArrayList<Integer>();
 	static ArrayList<Integer> bilgisayar_konumu = new ArrayList<Integer>();
-	
+	static boolean aktiflik = true;
 
 	public static void main(String[] args) {
 		char[][] gorunus = { { ' ', '|', ' ', '|', ' ' }, { '-', '+', '-', '+', '-', '+' }, { ' ', '|', ' ', '|', ' ' },
 				{ '-', '+', '-', '+', '-', '+' }, { ' ', '|', ' ', '|', ' ' } };
 		printGorunus(gorunus);
 		
-		while(true) {
+		while(aktiflik) {
 			Scanner scanner = new Scanner(System.in);
 			System.out.print("Bir konum giriniz (1-9):");		
 			int girilen_konum = scanner.nextInt();
@@ -30,7 +30,7 @@ public class TicTacToe {
 			String sonuc = kazanan_oyuncu();
 			if(sonuc.length()>0) {
 				System.out.println(sonuc);
-				break;
+				
 			}
 			Random random = new Random();
 			int bilgisayar_konum = random.nextInt(9) + 1;
@@ -44,7 +44,7 @@ public class TicTacToe {
 			sonuc = kazanan_oyuncu();
 			if(sonuc.length()>0) {
 				System.out.println(sonuc);
-				break;
+				
 			}
 
 		}
@@ -129,10 +129,14 @@ public class TicTacToe {
 		
 		for(List l : kazanan) {
 			if(oyuncu_konumu.containsAll(l)) {
+				aktiflik = false;
 				return "Tebrikler , kazandiniz.";
+				
 			}else if (bilgisayar_konumu.containsAll(l)) {
+				aktiflik = false;
 				return "Maalesef , kaybettiniz.";
 			}else if (oyuncu_konumu.size() + bilgisayar_konumu.size() == 9) {
+				aktiflik = false;
 				return "Berabere!";
 			}
 		}
